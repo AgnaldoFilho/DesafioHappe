@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    @Html.ActionLink("Desafio Happe", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <aside class="main-sidebar" style="background-color: #222222">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <h4 style="color:white">Mercado</h4>
+                </div>
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul id="menu-dinamico" class="sidebar-menu" data-widget="tree"></ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+    }
+
+    @*@Html.Action("Menu")*@
+    <div class="content-wrapper">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Desafio Happe</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            $(document).ready(function () {
+                $.get("https://localhost:44378/menusforusers/obtermeusitens",
+                    function (data, status) {
+                        var html =
+                            "<li class='active treeview menu-open'><a href='#'>Mercadão <i class='fa fa- angle - left pull-right'></i></a>" +
+                            retornarHTML(data) +
+                            "</li>";
+                        console.log(html);
+                        $('#menu-dinamico').append(html);
+                    });
+                $('.bg-green').remove();
+            });
+
+            function retornarHTML(dados) {
+                var html = "<ul class='treeview-menu '>";
+                $.each(dados,
+                    function (i, val) {
+                        html += "<li class='treeview'><a  href='#'>" + val.Name + "</a>";
+
+                        if (val.Childs) {
+                            html += retornarHTML(val.Childs);
+                        }
+
+                        html += "</li >";
+                    });
+                html += "</ul>";
+                return html;
+            }
+        </script>
+    }
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DesafioHappe.Models.ItensSideMenuMarket>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar novo Item Pai de Menu", "CreateItemPai")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Selecione seus Itens
+        </th>
+        <th>
+            @DisplayNameExtensions.DisplayNameFor(Html, model => model.Name)
+        </th>
+    </tr>
+    @*<tr>
+        <span>
+            <input type="checkbox" class="checkbox" name="selectedRoles" value="@info.RoleName" id="@infoRoleName" />
+            <label for="@info.RoleName">@info.RoleName</label>
+        </span>
+    </tr>*@
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @*@Html.CheckBox("Id", item.HasValue && item.Value)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
+        }
+    @*@foreach (var item in Model)  
+    {  
+        <input id="chk@(item.Id)"  
+               type="checkbox"  
+               value="@item.Id"   
+               checked="@item.Ativo" />  
+        @item.Name <br />*@  
+    }  
+
+</table>

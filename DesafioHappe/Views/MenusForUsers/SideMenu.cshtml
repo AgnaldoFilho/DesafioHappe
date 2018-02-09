@@ -1,0 +1,32 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Side Menu";
+    Layout = "~/Views/Home/About.cshtml";
+}
+
+<h2>Side Menu</h2>
+
+<div>
+    <ul>
+    @foreach (var menu in Model.Menus)
+    {
+        if (menu.Childs.Any())
+        {
+
+            <li><a href="@menu.rota">@menu.nome</a>
+
+                @foreach (var child in menu.Childs)
+                {
+                    <li><a href="@child.rota">@child.nome</a></li>
+                }
+
+            </li>
+        }
+        else
+        {
+            <li><a href="@menu.rota">@menu.nome</a></li>
+        }
+    }
+    </ul>
+</div>

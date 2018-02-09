@@ -1,0 +1,16 @@
+﻿@model dynamic
+@*@model System.Collections.Generic.List<DesafioHappe.Models.ItensSideMenuMarket>*@
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Selecione seus itens</h2>
+
+@using (Html.BeginForm("CreateMenus", "MenusForUsers"))
+{
+    @Html.ListBox("Id", (MultiSelectList)ViewBag.Itens, new { size = 10 })
+    <button type="submit" class="btn btn-primary">Criar</button>
+}

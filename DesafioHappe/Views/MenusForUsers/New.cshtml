@@ -1,0 +1,19 @@
+﻿@model DesafioHappe.ViewModels.NewMenusForUserViewModel
+
+@{
+    ViewBag.Title = "New Menus";
+    Layout = "~/Shared/_Layout.cshtml";
+}
+
+<h2>New Menus</h2>
+
+@using (Html.BeginForm("New", "MenusForUsers"))
+{
+    for (var i = 0; i < Model.ItensSideMenuMarkets.Count(); i++)
+    {
+        var role = Model.ItensSideMenuMarkets[i];
+        @Html.HiddenFor(model => model.ItensSideMenuMarkets[i].Id)
+        @*@Html.CheckBoxFor(model => model.ItensSideMenuMarkets[i].Selected)*@
+        @Html.LabelFor(model=> model.ItensSideMenuMarkets[i].Name, role.Name)
+    }
+}

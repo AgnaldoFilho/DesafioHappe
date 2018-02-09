@@ -1,0 +1,11 @@
+﻿@model DesafioHappe.Models.MenusForUser
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Selecione seus itens</h2>
+
+@Html.DropDownList("id", (MultiSelectList)ViewBag.Itens, new { multiple = "multiple" })
+@Html.ListBox("id", (MultiSelectList)ViewBag.Itens, new { size = 8 })
